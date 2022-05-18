@@ -1,0 +1,4 @@
+Name,SBQQ__Category__c,SBQQ__Number__c,SBQQ__MinOptionCount__c,SBQQ__MaxOptionCount__c,SBQQ__OptionSelectionMethod__c,SBQQ__ConfigurationFieldSet__c,SBQQ__DynamicProductFilterFieldSet__c,SBQQ__DynamicProductLookupFieldSet__c,SBQQ__ConfiguredSKU__r.Name,SBQQ__DiscountSchedule__r.Name,$$SBQQ__ConfiguredSKU__r.Name$Name
+Credits,,100,0,,,,,,Monthly Plan,,Monthly Plan;Credits
+Overage,,100,1,1,,,,,Logins (included),,Logins (included);Overage
+Overage,,100,1,1,,,,,Members (included),,Members (included);Overage

@@ -1,0 +1,9 @@
+SBQQ__Number__c,Name,SBQQ__LowerBound__c,SBQQ__UpperBound__c,SBQQ__Discount__c,SBQQ__DiscountAmount__c,SBQQ__Price__c,SBQQ__Schedule__r.Name,$$SBQQ__Schedule__r.Name$Name
+1,0-5,1,6,100,,,Members (Monthly Plan),Members (Monthly Plan);0-5
+2,5-25,6,26,0,,,Members (Monthly Plan),Members (Monthly Plan);5-25
+3,25-100,26,101,10,,,Members (Monthly Plan),Members (Monthly Plan);25-100
+4,100+,101,,20,,,Members (Monthly Plan),Members (Monthly Plan);100+
+1,0-100,1,101,100,,,Logins (Monthly Plan),Logins (Monthly Plan);0-100
+2,100-200,101,201,0,,,Logins (Monthly Plan),Logins (Monthly Plan);100-200
+3,200-1000,201,1001,10,,,Logins (Monthly Plan),Logins (Monthly Plan);200-1000
+4,1000+,1001,,20,,,Logins (Monthly Plan),Logins (Monthly Plan);1000+

@@ -1,0 +1,3 @@
+Name,Type,BillingTerm,BillingTermUnit,UnitOfMeasure,MatchingAttribute,SBQQ__Category__c,RatingMethod,IsActive,Description
+Members,Slab,1,Month,Quantity,Logins,Rates,Tier,TRUE,
+Logins,Slab,1,Month,Quantity,Logins,Rates,Tier,TRUE,

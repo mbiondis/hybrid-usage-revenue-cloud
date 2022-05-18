@@ -1,0 +1,6 @@
+.sfdx/
+
+binary_cache/
+logs/
+source/
+target/

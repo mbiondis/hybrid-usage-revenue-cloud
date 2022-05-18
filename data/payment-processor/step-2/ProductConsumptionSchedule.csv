@@ -1,0 +1,4 @@
+ConsumptionSchedule.Name,Product.Name,$$ConsumptionSchedule.Name$Product.Name
+Number of Transactions,TX,Number of Transactions;TX
+Transacted Volume,HVTX,Transacted Volume;HVTX
+Overage,Overage,Overage;Overage

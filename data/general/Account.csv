@@ -1,0 +1,5 @@
+Name,Type,Industry,AnnualRevenue,Phone,Website,NumberOfEmployees,ShippingGeocodeAccuracy,ShippingCity,ShippingCountry,ShippingLatitude,ShippingLongitude,ShippingPostalCode,ShippingState,ShippingStreet,BillingGeocodeAccuracy,BillingCity,BillingCountry,BillingLatitude,BillingLongitude,BillingPostalCode,BillingState,BillingStreet,LegalEntity__r.Name,blng__BillToContact__r.Name
+Revolut,Customer - Direct,Finance,163000000,+44 020 3322 8352,https://www.revolut.com/,3000,,London,United Kingdom,,,E14 4HD,London,7 Westferry Circus,,London,United Kingdom,,,E14 4HD,London,7 Westferry Circus,UK,Nikolay Storonsky
+Sample Account for Entitlements,,,,,,,,,,,,,,,,,,,,,,,,
+Informa,,,,,,,,,United Kingdom,,,,,,,,United Kingdom,,,,,,UK,
+Monzo,Customer,Finance,,,https://monzo.com/,,,London,United Kingdom,,,EC2A 2DA,,5 Appold St.,,London,United Kingdom,,,EC2A 2DA,,5 Appold St.,UK,

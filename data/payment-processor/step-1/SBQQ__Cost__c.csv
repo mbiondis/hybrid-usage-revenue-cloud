@@ -1,0 +1,5 @@
+SBQQ__UnitCost__c,SBQQ__Active__c,SBQQ__Product__r.Name,$$SBQQ__Product__r.Name$SBQQ__UnitCost__c
+0.5,TRUE,Transaction Commitment,Transaction Commitment;0.5
+0,TRUE,Overage,Overage
+0,TRUE,TX,TX
+0,TRUE,HVTX,HVTX

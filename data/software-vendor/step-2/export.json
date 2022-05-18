@@ -1,0 +1,26 @@
+{
+  "allOrNone": false,
+  "excludeIdsFromCSVFiles": true,
+  "simulationMode": false,
+  "keepObjectOrderWhileExecute": true,
+  "objects": [
+    {
+      "query": "SELECT Name FROM Product2",
+      "operation": "Readonly",
+      "externalId": "Name",
+      "excluded": false
+    },
+    {
+      "query": "SELECT Name, IsActive Description FROM ConsumptionSchedule",
+      "operation": "Upsert",
+      "externalId": "Name",
+      "excluded": false
+    },
+    {
+      "query": "SELECT ConsumptionScheduleId, ProductId FROM ProductConsumptionSchedule",
+      "operation": "Upsert",
+      "externalId": "ConsumptionSchedule.Name;Product.Name",
+      "excluded": false
+    }
+  ]
+}

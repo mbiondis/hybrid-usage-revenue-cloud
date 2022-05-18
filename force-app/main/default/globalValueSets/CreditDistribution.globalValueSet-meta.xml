@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Even</fullName>
+        <default>false</default>
+        <label>Even</label>
+    </customValue>
+    <customValue>
+        <fullName>Even (Active Inherits Completed)</fullName>
+        <default>false</default>
+        <label>Even (Active Inherits Completed)</label>
+    </customValue>
+    <customValue>
+        <fullName>Active Period Only</fullName>
+        <default>false</default>
+        <label>Active Period Only</label>
+    </customValue>
+    <masterLabel>Credit Distribution</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

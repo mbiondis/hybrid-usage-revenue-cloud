@@ -1,0 +1,5 @@
+ProcessingOrder,PricingMethod,LowerBound,UpperBound,Price,Description,ConsumptionSchedule.Name,$$ConsumptionSchedule.Name$ProcessingOrder$LowerBound$UpperBound$PricingMethod$Price
+1,FlatFee,0,1,0,,Members,Members;1;1;FlatFee
+2,PerUnit,1,,1,,Members,Members;2;1;PerUnit;1
+1,FlatFee,0,1,0,,Logins,Logins;1;1;FlatFee
+2,PerUnit,1,,1,,Logins,Logins;2;1;PerUnit;1

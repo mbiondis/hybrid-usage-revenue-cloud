@@ -1,0 +1,6 @@
+UnitPrice,IsActive,Pricebook2.Name,Product2.Name,$$Pricebook2.Name$Product2.Name$UnitPrice
+100,TRUE,Standard Price Book,Monthly Plan,Standard Price Book;Monthly Plan;100
+1,TRUE,Standard Price Book,Logins (included),Standard Price Book;Logins (included);1
+10,TRUE,Standard Price Book,Members (included),Standard Price Book;Members (included);10
+0,TRUE,Standard Price Book,Members,Standard Price Book;Members
+0,TRUE,Standard Price Book,Logins,Standard Price Book;Logins

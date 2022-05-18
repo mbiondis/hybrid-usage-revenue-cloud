@@ -1,0 +1,5 @@
+ConsumptionSchedule.Name,ProcessingOrder,PricingMethod,LowerBound,UpperBound,Price,Description,$$ConsumptionSchedule.Name$ProcessingOrder$LowerBound$UpperBound$PricingMethod$Price
+Overage,1,FlatFee,0,1,0,,Overage;1;1;FlatFee
+Overage,2,PerUnit,1,,1,,Overage;2;1;PerUnit;1
+Number of Transactions,1,PerUnit,1,,0.5,,Number of Transactions;1;1;PerUnit;0.5
+Transacted Volume,1,PerUnit,1,,0.01,,Transacted Volume;1;1;PerUnit;0.01

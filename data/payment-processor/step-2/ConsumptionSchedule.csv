@@ -1,0 +1,4 @@
+Name,Type,BillingTerm,BillingTermUnit,UnitOfMeasure,MatchingAttribute,SBQQ__Category__c,RatingMethod,IsActive,Description
+Transacted Volume,Slab,1,Month,Amount,Transaction,Rates,Tier,TRUE,
+Number of Transactions,Slab,1,Month,Quantity,Transaction,Rates,Tier,TRUE,
+Overage,Slab,1,Month,Amount,GBP,Rates,Tier,TRUE,

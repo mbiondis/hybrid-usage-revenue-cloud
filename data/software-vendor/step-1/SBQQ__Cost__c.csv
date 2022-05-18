@@ -1,0 +1,6 @@
+SBQQ__UnitCost__c,SBQQ__Active__c,SBQQ__Product__r.Name,$$SBQQ__Product__r.Name$SBQQ__UnitCost__c
+50,TRUE,Monthly Plan,Monthly Plan;50
+0.5,TRUE,Logins (included),Logins (included);0.5
+5,TRUE,Members (included),Members (included);5
+0,TRUE,Logins,Logins
+0,TRUE,Members,Members

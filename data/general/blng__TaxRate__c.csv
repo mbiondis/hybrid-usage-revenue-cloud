@@ -1,0 +1,4 @@
+Name,blng__Priority__c,blng__Rate__c,blng__TaxCode__c,blng__Country__c,blng__State__c,blng__City__c,blng__ZipCode__c,blng__LegalEntity__r.Name,$$blng__TaxCode__c$blng__Country__c$blng__State__c$blng__City__c$blng__Rate__c
+UK - Standard,0,20,Standard,United Kingdom,,,,UK,Standard;United Kingdom;20
+UK - Zero,0,0,Zero,United Kingdom,,,,UK,Zero;United Kingdom
+UK - Reduced,0,5,Reduced,United Kingdom,,,,UK,Reduced;United Kingdom;5

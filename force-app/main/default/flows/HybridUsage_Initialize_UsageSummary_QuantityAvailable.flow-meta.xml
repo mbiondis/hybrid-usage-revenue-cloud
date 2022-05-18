@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>53.0</apiVersion>
+    <decisions>
+        <name>CreditCarryoverType</name>
+        <label>Credit Carryover Type</label>
+        <locationX>1096</locationX>
+        <locationY>383</locationY>
+        <defaultConnector>
+            <targetReference>Initialize_QuantityAvailable</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Rolling</defaultConnectorLabel>
+        <rules>
+            <name>Pool</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.blng__OrderProduct__r.CreditCarryoverType__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Pool</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Is_Refresh_Period</targetReference>
+            </connector>
+            <label>Pool</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Is_Refresh_Period</name>
+        <label>Is Refresh Period?</label>
+        <locationX>923</locationX>
+        <locationY>497</locationY>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Yes_RefreshPeriod</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>FX_IsRefreshPeriod</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Initialize_QuantityAvailable</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <formulas>
+        <name>FX_IsRefreshPeriod</name>
+        <dataType>Boolean</dataType>
+        <expression>MOD( {!$Record.Index__c} - 1, {!$Record.blng__OrderProduct__r.UsageTerm__c} ) == 0</expression>
+    </formulas>
+    <interviewLabel>Hybrid Usage - Initialize Usage Summary Quantity Available {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Hybrid Usage - Initialize Usage Summary Quantity Available</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <description>Initialize the Quantity Available to the Included Quantity for the Order Product.</description>
+        <name>Initialize_QuantityAvailable</name>
+        <label>Initialize Quantity Available</label>
+        <locationX>1104</locationX>
+        <locationY>595</locationY>
+        <inputAssignments>
+            <field>QuantityAllowance__c</field>
+            <value>
+                <elementReference>$Record.blng__OrderProduct__r.IncludedUsageCredits__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>970</locationX>
+        <locationY>48</locationY>
+        <connector>
+            <targetReference>CreditCarryoverType</targetReference>
+        </connector>
+        <object>blng__UsageSummary__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

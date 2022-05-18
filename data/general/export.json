@@ -1,0 +1,116 @@
+{
+  "allOrNone": false,
+  "excludeIdsFromCSVFiles": true,
+  "simulationMode": false,
+  "keepObjectOrderWhileExecute": true,
+  "objects": [
+    {
+      "query": "SELECT Name, blng__Active__c, blng__Country__c, blng__State__c, blng__County__c, blng__City__c, blng__ZipPostalCode__c, blng__Street1__c, blng__Street2__c, blng__Notes__c FROM blng__LegalEntity__c",
+      "operation": "Upsert",
+      "externalId": "Name",
+      "excluded": false
+    },
+    {
+      "query": "SELECT Name, blng__Active__c, blng__PeriodType__c, blng__FinancePeriodDuration__c, blng__Notes__c FROM blng__FinanceBook__c",
+      "operation": "Upsert",
+      "externalId": "Name",
+      "excluded": false
+    },
+    {
+      "query": "SELECT Name, blng__Active__c, blng__GLAccountNumber__c, blng__GLAccountDescription__c, blng__Notes__c FROM blng__GLAccount__c",
+      "operation": "Upsert",
+      "externalId": "Name",
+      "excluded": false
+    },
+    {
+      "query": "SELECT Name, blng__Active__c, blng__Notes__c FROM blng__GLRule__c",
+      "operation": "Upsert",
+      "externalId": "Name",
+      "excluded": false
+    },
+    {
+      "query": "SELECT Name, blng__Active__c, blng__GenerateInvoices__c, blng__InitialBillingTrigger__c, blng__PartialPeriodTreatment__c, blng__PeriodTreatmentForBTDO__c FROM blng__BillingRule__c",
+      "operation": "Upsert",
+      "externalId": "Name",
+      "excluded": false
+    },
+    {
+      "query": "SELECT Name, blng__Active__c, blng__Type__c, blng__DistributionMethod__c, blng__MonthlyRecognitionProration__c, blng__RevenueTransactionCreationProcess__c, blng__RevenueScheduleTermStartDate__c, blng__RevenueScheduleTermEndDate__c, blng__FullRecognitionDate__c, blng__Notes__c FROM blng__RevenueDistributionMethod__c",
+      "operation": "Upsert",
+      "externalId": "Name",
+      "excluded": false
+    },
+    {
+      "query": "SELECT Name, blng__Active__c, blng__CreateRevenueSchedule__c FROM blng__RevenueRecognitionRule__c",
+      "operation": "Upsert",
+      "externalId": "Name",
+      "excluded": false
+    },
+    {
+      "query": "SELECT Name, blng__Active__c,  blng__TaxEngine__c, blng__Default__c, blng__Notes__c FROM blng__TaxIntegration__c",
+      "operation": "Upsert",
+      "externalId": "Name",
+      "excluded": false
+    },
+    {
+      "query": "SELECT Name, blng__Active__c, blng__TaxableYesNo__c FROM blng__TaxRule__c",
+      "operation": "Upsert",
+      "externalId": "Name",
+      "excluded": false
+    },
+    {
+      "query": "SELECT Name, blng__FinanceBook__c, blng__PeriodStartDate__c, blng__PeriodEndDate__c, blng__PeriodStatus__c, blng__LegalEntity__c FROM blng__FinancePeriod__c",
+      "operation": "Upsert",
+      "externalId": "Name",
+      "excluded": false
+    },
+    {
+      "query": "SELECT Name, blng__Active__c, blng__CreditGLAccount__c, blng__DebitGLAccount__c, blng__GLLegalEntity__c, blng__GLRule__c, blng__Notes__c FROM blng__GLTreatment__c",
+      "operation": "Upsert",
+      "externalId": "Name",
+      "excluded": false
+    },
+    {
+      "query": "SELECT Name, blng__Active__c, blng__BillingFinanceBook__c, blng__BillingGLRule__c, blng__BillingLegalEntity__c, blng__BillingRule__c, blng__CancellationInvoicePlan__c, blng__CancellationRule__c, blng__InvoicePlan__c FROM blng__BillingTreatment__c",
+      "operation": "Upsert",
+      "externalId": "Name",
+      "excluded": false
+    },
+    {
+      "query": "SELECT Name, blng__Active__c, blng__FlatAmount__c, blng__Percentage__c, blng__ProcessingOrder__c, blng__RevenueAgreementAssociation__c, blng__RevenueDistributionMethod__c, blng__RevenueFinanceBook__c, blng__RevenueGLRule__c, blng__RevenueLegalEntity__c, blng__RevenueRecognitionRule__c, blng__RevenueScheduleAmount__c, blng__RevenueScheduleCreationAction__c, blng__Type__c FROM blng__RevenueRecognitionTreatment__c",
+      "operation": "Upsert",
+      "externalId": "Name",
+      "excluded": false
+    },
+    {
+      "query": "SELECT Name, blng__Active__c, blng__Notes__c, blng__TaxCode__c, blng__TaxGLRule__c, blng__TaxIntegration__c, blng__TaxLegalEntity__c, blng__TaxRule__c FROM blng__TaxTreatment__c",
+      "operation": "Upsert",
+      "externalId": "Name",
+      "excluded": false
+    },
+    {
+      "query": "SELECT Name, blng__LegalEntity__c, blng__Priority__c, blng__Rate__c, blng__TaxCode__c, blng__Country__c, blng__State__c, blng__City__c, blng__ZipCode__c blng__Notes__c FROM blng__TaxRate__c",
+      "operation": "Upsert",
+      "externalId": "blng__TaxCode__c;blng__Country__c;blng__State__c;blng__City__c;blng__Rate__c",
+      "excluded": false
+    },
+    {
+      "query": "SELECT Name, Type, Industry, LegalEntity__c, AnnualRevenue, Phone, Website, NumberOfEmployees, blng__BillToContact__c, ShippingAddress, BillingAddress, BillingCountry, BillingAddress, BillingCity, BillingPostalCode, BillingState, BillingStreet, ShippingCountry, ShippingAddress, ShippingCity, ShippingPostalCode, ShippingState, ShippingStreet FROM Account",
+      "operation": "Upsert",
+      "externalId": "Name",
+      "excluded": false
+    },
+    {
+      "query": "SELECT Salutation, FirstName, LastName, AccountId, Email FROM Contact",
+      "operation": "Upsert",
+      "externalId": "Name",
+      "excluded": false
+    },
+    {
+      "query": "SELECT Name, SBQQ__Code__c, SBQQ__ConsumptionRateFields__c, SBQQ__ConsumptionScheduleFields__c, SBQQ__GroupFields__c, SBQQ__QuoteFields__c, SBQQ__QuoteLineFields__c FROM SBQQ__CustomScript__c",
+      "operation": "Upsert",
+      "externalId": "Name",
+      "excluded": false
+    }
+  ]
+}
