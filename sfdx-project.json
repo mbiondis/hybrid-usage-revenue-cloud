@@ -4,17 +4,14 @@
       "path": "force-app",
       "default": true,
       "package": "Hybrid Usage for Revenue Cloud",
-      "versionName": "ver 0.1",
+      "versionName": "Summer '22",
       "versionNumber": "0.1.0.NEXT",
       "dependencies": [
         {
-          "package": "Salesforce CPQ"
+          "package": "Salesforce CPQ (Winter '22) [234.2]"
         },
         {
-          "package": "Salesforce Billing"
-        },
-        {
-          "package": "Revenue Cloud Starter Pack"
+          "package": "Salesforce Billing (Winter '22) [234.1]"
         }
       ]
     }
@@ -25,8 +22,7 @@
   "sourceApiVersion": "54.0",
   "packageAliases": {
     "Hybrid Usage for Revenue Cloud": "0Ho8d000000wk4PCAQ",
-    "Salesforce CPQ": "04t4N000000GkQ3QAK",
-    "Salesforce Billing": "04t0K000001RuKpQAK",
-    "Revenue Cloud Starter Pack": "04t8d000000cfROAAY"
+    "Salesforce CPQ (Winter '22) [234.2]": "04t4N000000GkN9QAK",
+    "Salesforce Billing (Winter '22) [234.1]": "04t0K000001RuKGQA0"
   }
 }

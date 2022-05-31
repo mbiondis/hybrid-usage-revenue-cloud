@@ -34,7 +34,7 @@
         </connector>
     </assignments>
     <interviewLabel>Hybrid Usage - Propagate Override Effective Date to Order Products {!$Flow.CurrentDateTime}</interviewLabel>
-    <label>Hybrid Usage - Propagate Override Effective Date to Order Products</label>
+    <label>Hybrid Usage - Propagate Override Effective Date to Usage Buckets</label>
     <loops>
         <name>Loop_through_OrderProducts</name>
         <label>Loop through Order Products</label>
@@ -86,10 +86,10 @@
             </value>
         </filters>
         <filters>
-            <field>HasUsageMeters__c</field>
+            <field>UsageType__c</field>
             <operator>EqualTo</operator>
             <value>
-                <booleanValue>true</booleanValue>
+                <stringValue>Bucket</stringValue>
             </value>
         </filters>
         <getFirstRecordOnly>false</getFirstRecordOnly>
@@ -111,8 +111,14 @@
         <connector>
             <targetReference>Get_UsageBuckets</targetReference>
         </connector>
-        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
         <filterLogic>and</filterLogic>
+        <filters>
+            <field>OverrideEffectiveDate__c</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
         <filters>
             <field>OverrideEffectiveDate__c</field>
             <operator>IsNull</operator>

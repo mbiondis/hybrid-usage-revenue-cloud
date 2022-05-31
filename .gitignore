@@ -1,4 +1,5 @@
 .sfdx/
+.sf/
 
 binary_cache/
 logs/

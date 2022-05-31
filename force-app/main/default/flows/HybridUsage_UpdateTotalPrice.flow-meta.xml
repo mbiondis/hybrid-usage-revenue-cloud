@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>54.0</apiVersion>
-    <description>Automatically generate an Invoice when the Usage Bucket has finished accumulating.</description>
-    <interviewLabel>Hybrid Usage - Bill Now when Accumulated {!$Flow.CurrentDateTime}</interviewLabel>
-    <label>Hybrid Usage - Bill Now when Bucket is Accumulated</label>
+    <description>The Total Price keeps memory of the subtotal even after it was billed.</description>
+    <interviewLabel>Hybrid Usage - Update Total Price (Usage Summary) {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Hybrid Usage - Update Total Price (Usage Summary)</label>
     <processMetadataValues>
         <name>BuilderType</name>
         <value>
@@ -24,44 +24,28 @@
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
     <recordUpdates>
-        <name>BillNow</name>
-        <label>Bill Now</label>
+        <name>Update_TotalPrice</name>
+        <label>Update Total Price</label>
         <locationX>176</locationX>
         <locationY>335</locationY>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>$Record.blng__OrderProduct__r.OrderId</elementReference>
-            </value>
-        </filters>
         <inputAssignments>
-            <field>blng__BillNow__c</field>
+            <field>TotalPrice__c</field>
             <value>
-                <booleanValue>true</booleanValue>
+                <elementReference>$Record.blng__Subtotal__c</elementReference>
             </value>
         </inputAssignments>
-        <object>Order</object>
+        <inputReference>$Record</inputReference>
     </recordUpdates>
     <start>
         <locationX>50</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>BillNow</targetReference>
+            <targetReference>Update_TotalPrice</targetReference>
         </connector>
-        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
         <filterLogic>and</filterLogic>
         <filters>
-            <field>blng__Status__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <stringValue>Queued For Invoice</stringValue>
-            </value>
-        </filters>
-        <filters>
-            <field>Bucket__c</field>
-            <operator>EqualTo</operator>
+            <field>blng__TotalQuantity__c</field>
+            <operator>IsChanged</operator>
             <value>
                 <booleanValue>true</booleanValue>
             </value>

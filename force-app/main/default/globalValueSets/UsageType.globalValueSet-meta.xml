@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Minimum Commitment</fullName>
+        <default>false</default>
+        <label>Minimum Commitment</label>
+    </customValue>
+    <customValue>
+        <fullName>Standard</fullName>
+        <default>false</default>
+        <label>Standard</label>
+    </customValue>
+    <customValue>
+        <fullName>Bucket</fullName>
+        <default>false</default>
+        <label>Bucket</label>
+    </customValue>
+    <customValue>
+        <fullName>Meter</fullName>
+        <default>false</default>
+        <label>Meter</label>
+    </customValue>
+    <masterLabel>Usage Type</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

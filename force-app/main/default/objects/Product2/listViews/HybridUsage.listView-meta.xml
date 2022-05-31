@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HybridUsage</fullName>
+    <columns>PRODUCT2.NAME</columns>
+    <columns>UsageType__c</columns>
+    <columns>SBQQ__SubscriptionTerm__c</columns>
+    <columns>UsageTerm__c</columns>
+    <columns>SBQQ__BillingFrequency__c</columns>
+    <columns>SBQQ__BillingType__c</columns>
+    <columns>CreditCarryoverType__c</columns>
+    <columns>CreditDistributionAmend__c</columns>
+    <columns>CarryoverFactor__c</columns>
+    <columns>CarryoverLimit__c</columns>
+    <columns>OverageSurcharge__c</columns>
+    <columns>StandardPrice__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>UsageType__c</field>
+        <operation>notEqual</operation>
+    </filters>
+    <label>Hybrid Usage</label>
+</ListView>

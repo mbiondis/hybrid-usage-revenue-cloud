@@ -4,8 +4,8 @@
     <assignments>
         <name>Consider_All_Periods</name>
         <label>Consider All Periods</label>
-        <locationX>314</locationX>
-        <locationY>935</locationY>
+        <locationX>266</locationX>
+        <locationY>1130</locationY>
         <assignmentItems>
             <assignToReference>UsagePeriod_Base</assignToReference>
             <operator>Assign</operator>
@@ -34,8 +34,8 @@
     <assignments>
         <name>Consider_Only_ActivePeriod</name>
         <label>Consider Only Active Period</label>
-        <locationX>50</locationX>
-        <locationY>815</locationY>
+        <locationX>139</locationX>
+        <locationY>1131</locationY>
         <assignmentItems>
             <assignToReference>UsagePeriod_Base</assignToReference>
             <operator>Assign</operator>
@@ -64,8 +64,8 @@
     <assignments>
         <name>Consider_Periods_Left</name>
         <label>Consider Periods Left</label>
-        <locationX>578</locationX>
-        <locationY>1055</locationY>
+        <locationX>449</locationX>
+        <locationY>1135</locationY>
         <assignmentItems>
             <assignToReference>UsagePeriod_Base</assignToReference>
             <operator>Assign</operator>
@@ -92,10 +92,10 @@
         </connector>
     </assignments>
     <assignments>
-        <name>FixedAllowance_for_AllPeriods</name>
-        <label>Fixed Allowance for All Periods</label>
-        <locationX>842</locationX>
-        <locationY>1055</locationY>
+        <name>FixedAllowance_for_AllFuturePeriods</name>
+        <label>Fixed Allowance for All Future Periods</label>
+        <locationX>535</locationX>
+        <locationY>1306</locationY>
         <assignmentItems>
             <assignToReference>UsagePeriod_Base</assignToReference>
             <operator>Assign</operator>
@@ -124,8 +124,8 @@
     <assignments>
         <name>Read_UsageDelta</name>
         <label>Read Usage Delta</label>
-        <locationX>281</locationX>
-        <locationY>575</locationY>
+        <locationX>536</locationX>
+        <locationY>661</locationY>
         <assignmentItems>
             <assignToReference>UsageDelta_Total</assignToReference>
             <operator>Assign</operator>
@@ -134,14 +134,14 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>DistributionMethod</targetReference>
+            <targetReference>CreditCarryoverType</targetReference>
         </connector>
     </assignments>
     <assignments>
         <name>Update_IncludedUsage_1</name>
         <label>Update Included Usage</label>
-        <locationX>512</locationX>
-        <locationY>1367</locationY>
+        <locationX>360</locationX>
+        <locationY>1306</locationY>
         <assignmentItems>
             <assignToReference>IncludedUsage_New</assignToReference>
             <operator>Add</operator>
@@ -156,8 +156,8 @@
     <assignments>
         <name>Update_IncludedUsage_2</name>
         <label>Update Included Usage</label>
-        <locationX>50</locationX>
-        <locationY>935</locationY>
+        <locationX>140</locationX>
+        <locationY>1304</locationY>
         <assignmentItems>
             <assignToReference>IncludedUsage_New</assignToReference>
             <operator>Add</operator>
@@ -172,8 +172,8 @@
     <assignments>
         <name>Update_QuantityAvailable</name>
         <label>Update Quantity Available</label>
-        <locationX>281</locationX>
-        <locationY>1703</locationY>
+        <locationX>216</locationX>
+        <locationY>1595</locationY>
         <assignmentItems>
             <assignToReference>QuantityAvailable_ActivePeriod</assignToReference>
             <operator>Add</operator>
@@ -188,10 +188,10 @@
     <decisions>
         <name>CreditCarryoverType</name>
         <label>Credit Carryover</label>
-        <locationX>710</locationX>
-        <locationY>935</locationY>
+        <locationX>528</locationX>
+        <locationY>794</locationY>
         <defaultConnector>
-            <targetReference>FixedAllowance_for_AllPeriods</targetReference>
+            <targetReference>FixedAllowance_for_AllFuturePeriods</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Rolling</defaultConnectorLabel>
         <rules>
@@ -205,7 +205,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Consider_Periods_Left</targetReference>
+                <targetReference>DistributionMethod</targetReference>
             </connector>
             <label>Pool</label>
         </rules>
@@ -213,8 +213,8 @@
     <decisions>
         <name>DistributionMethod</name>
         <label>Distribution Method</label>
-        <locationX>281</locationX>
-        <locationY>695</locationY>
+        <locationX>352</locationX>
+        <locationY>853</locationY>
         <defaultConnector>
             <targetReference>EvenDistributionType</targetReference>
         </defaultConnector>
@@ -223,7 +223,7 @@
             <name>ActivePeriodOnly</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>$Record.SBQQ__QuoteLine__r.CreditDistribution__c</leftValueReference>
+                <leftValueReference>$Record.SBQQ__QuoteLine__r.CreditDistributionAmend__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Active Period Only</stringValue>
@@ -238,17 +238,17 @@
     <decisions>
         <name>EvenDistributionType</name>
         <label>Even Distribution Type</label>
-        <locationX>512</locationX>
-        <locationY>815</locationY>
+        <locationX>353</locationX>
+        <locationY>1014</locationY>
         <defaultConnector>
-            <targetReference>CreditCarryoverType</targetReference>
+            <targetReference>Consider_Periods_Left</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Flat</defaultConnectorLabel>
         <rules>
             <name>Even_ActiveInheritsCompleted</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>$Record.SBQQ__QuoteLine__r.CreditDistribution__c</leftValueReference>
+                <leftValueReference>$Record.SBQQ__QuoteLine__r.CreditDistributionAmend__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Even (Active Inherits Completed)</stringValue>
@@ -314,7 +314,7 @@
     <processMetadataValues>
         <name>CanvasMode</name>
         <value>
-            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
         </value>
     </processMetadataValues>
     <processMetadataValues>
@@ -327,8 +327,8 @@
     <recordLookups>
         <name>Get_Active_UsageSummary</name>
         <label>Get Active Usage Summary</label>
-        <locationX>281</locationX>
-        <locationY>455</locationY>
+        <locationX>536</locationX>
+        <locationY>521</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Read_UsageDelta</targetReference>
@@ -365,13 +365,13 @@
     <recordLookups>
         <name>Get_Revised_UsageProduct</name>
         <label>Get Revised Usage Product</label>
-        <locationX>281</locationX>
-        <locationY>335</locationY>
+        <locationX>536</locationX>
+        <locationY>383</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Active_UsageSummary</targetReference>
         </connector>
-        <filterLogic>and</filterLogic>
+        <filterLogic>1 AND (2 OR 3)</filterLogic>
         <filters>
             <field>SBQQ__RequiredBy__c</field>
             <operator>EqualTo</operator>
@@ -380,17 +380,17 @@
             </value>
         </filters>
         <filters>
-            <field>HasConsumptionSchedule__c</field>
+            <field>UsageType__c</field>
             <operator>EqualTo</operator>
             <value>
-                <booleanValue>true</booleanValue>
+                <stringValue>Standard</stringValue>
             </value>
         </filters>
         <filters>
-            <field>UsageTerm__c</field>
-            <operator>GreaterThan</operator>
+            <field>UsageType__c</field>
+            <operator>EqualTo</operator>
             <value>
-                <numberValue>0.0</numberValue>
+                <stringValue>Bucket</stringValue>
             </value>
         </filters>
         <object>OrderItem</object>
@@ -414,8 +414,8 @@
     <recordUpdates>
         <name>Update_ActiveUsageSummary</name>
         <label>Update Active Usage Summary</label>
-        <locationX>281</locationX>
-        <locationY>1823</locationY>
+        <locationX>217</locationX>
+        <locationY>1737</locationY>
         <connector>
             <targetReference>Update_UsageBucket_IncludedUsage</targetReference>
         </connector>
@@ -438,8 +438,8 @@
     <recordUpdates>
         <name>Update_Upcoming_RefreshPeriods</name>
         <label>Update Upcoming Refresh Periods</label>
-        <locationX>512</locationX>
-        <locationY>1487</locationY>
+        <locationX>360</locationX>
+        <locationY>1452</locationY>
         <connector>
             <targetReference>Update_QuantityAvailable</targetReference>
         </connector>
@@ -476,8 +476,8 @@
     <recordUpdates>
         <name>Update_UsageBucket_IncludedUsage</name>
         <label>Update Usage Bucket Included Usage</label>
-        <locationX>281</locationX>
-        <locationY>1943</locationY>
+        <locationX>217</locationX>
+        <locationY>1888</locationY>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
@@ -495,16 +495,24 @@
         <object>OrderItem</object>
     </recordUpdates>
     <start>
-        <locationX>155</locationX>
-        <locationY>0</locationY>
+        <locationX>410</locationX>
+        <locationY>48</locationY>
         <connector>
             <targetReference>Get_Revised_UsageProduct</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>SBQQ__RevisedSubscription__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
         <object>SBQQ__Subscription__c</object>
         <recordTriggerType>Create</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
     <variables>
         <name>ActivePeriodDate</name>
         <dataType>Date</dataType>

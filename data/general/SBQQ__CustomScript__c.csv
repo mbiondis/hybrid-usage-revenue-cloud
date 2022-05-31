@@ -1,5 +1,5 @@
 Name,SBQQ__Code__c,SBQQ__ConsumptionRateFields__c,SBQQ__ConsumptionScheduleFields__c,SBQQ__GroupFields__c,SBQQ__QuoteFields__c,SBQQ__QuoteLineFields__c
-UpdateConsumptionSchedule,"// Final Version
+HybridUsageAddOn,"// Final Version
 export function onBeforeCalculate(quote, lines, conn) {
     if (lines) {
        lines.forEach((line) => {

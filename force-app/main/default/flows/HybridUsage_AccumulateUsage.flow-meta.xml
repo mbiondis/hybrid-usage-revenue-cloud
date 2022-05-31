@@ -228,10 +228,10 @@
         </connector>
         <filterLogic>1 AND (2 OR 3)</filterLogic>
         <filters>
-            <field>HasUsageMeters__c</field>
+            <field>UsageType__c</field>
             <operator>EqualTo</operator>
             <value>
-                <booleanValue>true</booleanValue>
+                <stringValue>Bucket</stringValue>
             </value>
         </filters>
         <filters>

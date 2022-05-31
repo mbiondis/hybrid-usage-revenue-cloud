@@ -2,10 +2,15 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>RefreshPeriod__c</fullName>
     <externalId>false</externalId>
-    <formula>AND( blng__OrderProduct__r.UsageTerm__c > 0,
-      MOD(Index__c-1, 
-          blng__OrderProduct__r.UsageTerm__c) == 0
-     )</formula>
+    <formula>AND(
+  IF( ISPICKVAL( blng__OrderProduct__r.CreditCarryoverType__c , &quot;Rolling&quot;), true,
+  IF( ISPICKVAL( blng__OrderProduct__r.CreditCarryoverType__c , &quot;Pool&quot;), MOD(Index__c-1, 
+  blng__OrderProduct__r.UsageTerm__c) == 0,
+  false
+  )
+  ),
+  OR(ISPICKVAL( blng__OrderProduct__r.UsageType__c , &quot;Bucket&quot;), ISPICKVAL( blng__OrderProduct__r.UsageType__c , &quot;Credit&quot;))
+)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Refresh Period</label>
     <trackHistory>false</trackHistory>

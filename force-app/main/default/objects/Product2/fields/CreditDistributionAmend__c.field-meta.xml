@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CreditDistributionAmend__c</fullName>
+    <description>Determines how the total usage is distributed among the usage periods when making amendments.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Determines how the total usage is distributed among the usage periods when making amendments.</inlineHelpText>
+    <label>Credit Distribution on Amend</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>CreditCarryoverType__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetName>CreditDistributionAmend</valueSetName>
+        <valueSettings>
+            <controllingFieldValue>Rolling</controllingFieldValue>
+            <controllingFieldValue>Pool</controllingFieldValue>
+            <valueName>Even</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pool</controllingFieldValue>
+            <valueName>Even (Active Inherits Completed)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pool</controllingFieldValue>
+            <valueName>Active Period Only</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

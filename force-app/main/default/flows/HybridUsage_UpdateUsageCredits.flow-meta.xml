@@ -2,15 +2,15 @@
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>52.0</apiVersion>
     <assignments>
-        <name>Add_Carryover_to_NextUsagePeriod</name>
-        <label>Add Carryover to Next Usage Period</label>
-        <locationX>1239</locationX>
-        <locationY>2445</locationY>
+        <name>Add_CreditLeftover_to_NextUsagePeriod</name>
+        <label>Add Credit Leftover to Next Usage Period</label>
+        <locationX>1096</locationX>
+        <locationY>3025</locationY>
         <assignmentItems>
-            <assignToReference>QuantityCarryover_Next</assignToReference>
+            <assignToReference>US_Next.QuantityCarryover__c</assignToReference>
             <operator>Add</operator>
             <value>
-                <elementReference>QuantityCarryover_Current</elementReference>
+                <elementReference>US_Current.CreditLeftover__c</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -18,10 +18,26 @@
         </connector>
     </assignments>
     <assignments>
+        <name>Add_CreditLeftover_to_NextUsagePeriod_0</name>
+        <label>Add Credit Leftover to Next Usage Period</label>
+        <locationX>1471</locationX>
+        <locationY>2965</locationY>
+        <assignmentItems>
+            <assignToReference>US_Next.QuantityCarryover__c</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>US_Current.CreditLeftover__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Apply_CarryoverLimit_0</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
         <name>Add_Rate_to_Update_Queue</name>
         <label>Add Rate to Update Queue</label>
-        <locationX>1203</locationX>
-        <locationY>3340</locationY>
+        <locationX>1436</locationX>
+        <locationY>3989</locationY>
         <assignmentItems>
             <assignToReference>UpdatedConsumptionRates</assignToReference>
             <operator>Add</operator>
@@ -34,59 +50,59 @@
         </connector>
     </assignments>
     <assignments>
-        <name>Add_to_Update_Queue</name>
-        <label>Add to Update Queue</label>
-        <locationX>1251</locationX>
-        <locationY>1884</locationY>
+        <name>Add_to_UpdatedQueue</name>
+        <label>Add to Updated Queue</label>
+        <locationX>1255</locationX>
+        <locationY>1831</locationY>
         <assignmentItems>
-            <assignToReference>UsagePeriods_RollingWindow</assignToReference>
+            <assignToReference>US_Window_Updated</assignToReference>
             <operator>Add</operator>
             <value>
-                <elementReference>UsagePeriod</elementReference>
+                <elementReference>US</elementReference>
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Loop_through_UsagePeriods</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
-        <name>Apply_CarryoverFactor</name>
-        <label>Apply Carryover Factor</label>
-        <locationX>1374</locationX>
-        <locationY>2075</locationY>
-        <assignmentItems>
-            <assignToReference>QuantityCarryover_Current</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>FX_Leftover_WithCarryoverFactor</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Has_CarryoverLimit</targetReference>
+            <targetReference>Loop_through_UsageWindow</targetReference>
         </connector>
     </assignments>
     <assignments>
         <name>Apply_CarryoverLimit</name>
         <label>Apply Carryover Limit</label>
-        <locationX>983</locationX>
-        <locationY>2352</locationY>
+        <locationX>1243</locationX>
+        <locationY>2959</locationY>
         <assignmentItems>
-            <assignToReference>QuantityCarryover_Current</assignToReference>
+            <assignToReference>US_Current.CreditLeftover__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>FX_Leftover_WithCarryoverLimit</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Add_CreditLeftover_to_NextUsagePeriod</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Apply_CarryoverLimit_0</name>
+        <label>Apply Carryover Limit</label>
+        <locationX>1606</locationX>
+        <locationY>3021</locationY>
+        <assignmentItems>
+            <assignToReference>US_Next.QuantityCarryover__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>FX_Carryover_WithCarryoverLimit</elementReference>
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Refresh_CurrentPeriod_Carryover</targetReference>
+            <targetReference>Set_QuantityAvailable_for_NextPeriod</targetReference>
         </connector>
     </assignments>
     <assignments>
         <description>This step is not needed if calculated within a formula in the Consumption Rate object</description>
         <name>Calculate_Delta</name>
         <label>Calculate Delta</label>
-        <locationX>1612</locationX>
-        <locationY>3121</locationY>
+        <locationX>1757</locationX>
+        <locationY>3593</locationY>
         <assignmentItems>
             <assignToReference>LowerBound_Current</assignToReference>
             <operator>Assign</operator>
@@ -106,22 +122,22 @@
         </connector>
     </assignments>
     <assignments>
-        <name>Calculate_RollingWindow_StartIndex</name>
-        <label>Calculate Rolling Window Start Index</label>
-        <locationX>1092</locationX>
-        <locationY>1504</locationY>
+        <name>Calculate_IndexWindowStart</name>
+        <label>Calculate Window Start Index</label>
+        <locationX>1098</locationX>
+        <locationY>1417</locationY>
         <assignmentItems>
             <assignToReference>Index_WindowStart</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Index_Current</elementReference>
+                <elementReference>US_Current.Index__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>Index_WindowStart</assignToReference>
             <operator>Subtract</operator>
             <value>
-                <elementReference>CreditValidity</elementReference>
+                <elementReference>WindowStartDelta</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -129,10 +145,91 @@
         </connector>
     </assignments>
     <assignments>
+        <name>Calculate_Leftover_with_Carryover</name>
+        <label>Calculate Leftover with Carryover</label>
+        <locationX>1096</locationX>
+        <locationY>2533</locationY>
+        <assignmentItems>
+            <assignToReference>US_Current.CreditLeftover__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>FX_Leftover_WithCarryoverFactor</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Has_CarryoverLimit</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Calculate_QuantityCarryover_from_CurrentPeriodLeftover_0</name>
+        <label>Calculate Quantity Carryover from Current Period Leftover</label>
+        <locationX>1187</locationX>
+        <locationY>2069</locationY>
+        <assignmentItems>
+            <assignToReference>US_Next.QuantityCarryover__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>FX_Leftover_OnlyPositive</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Discount_Usage_from_Allowance</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Leftover from previous usage periods passes to next period without the credit limitations, because these were already applied.</description>
+        <name>Calculate_QuantityCarryover_from_PoolLeftover</name>
+        <label>Calculate Quantity Carryover from Current Pool Leftover</label>
+        <locationX>1006</locationX>
+        <locationY>2070</locationY>
+        <assignmentItems>
+            <assignToReference>US_Next.QuantityCarryover__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>FX_LeftoverPool_WithCarryoverFactor</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Discount_Usage_from_Allowance</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Calculate_WindowStartDelta_Pool</name>
+        <label>Calculate Window Start Delta (Pool)</label>
+        <locationX>979</locationX>
+        <locationY>1220</locationY>
+        <assignmentItems>
+            <assignToReference>WindowStartDelta</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>FX_WindowStartDelta</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>UsagePeriod_HasChanged</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Calculate_WindowStartDelta_Rolling</name>
+        <label>Calculate Window Start Delta (Rolling)</label>
+        <locationX>1200</locationX>
+        <locationY>1221</locationY>
+        <assignmentItems>
+            <assignToReference>WindowStartDelta</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>UsageTerm</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Calculate_IndexWindowStart</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
         <name>Discount_Usage_from_Allowance</name>
         <label>Discount Usage from Allowance</label>
-        <locationX>1242</locationX>
-        <locationY>2074</locationY>
+        <locationX>1098</locationX>
+        <locationY>2239</locationY>
         <assignmentItems>
             <assignToReference>Leftover</assignToReference>
             <operator>Assign</operator>
@@ -144,18 +241,18 @@
             <assignToReference>Leftover</assignToReference>
             <operator>Add</operator>
             <value>
-                <elementReference>QuantityAllowance_Current</elementReference>
+                <elementReference>US_Current.QuantityAllowance__c</elementReference>
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Apply_CarryoverFactor</targetReference>
+            <targetReference>Set_Leftover_to_Positive</targetReference>
         </connector>
     </assignments>
     <assignments>
         <name>Discount_Usage_from_Leftover</name>
         <label>Discount Usage from Leftover</label>
-        <locationX>1254</locationX>
-        <locationY>1742</locationY>
+        <locationX>1255</locationX>
+        <locationY>1683</locationY>
         <assignmentItems>
             <assignToReference>Leftover</assignToReference>
             <operator>Assign</operator>
@@ -167,18 +264,18 @@
             <assignToReference>Leftover</assignToReference>
             <operator>Add</operator>
             <value>
-                <elementReference>Loop_through_UsagePeriods.CreditLeftover__c</elementReference>
+                <elementReference>Loop_through_UsageWindow.CreditLeftover__c</elementReference>
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Update_UsagePeriod</targetReference>
+            <targetReference>Update_CreditLeftover</targetReference>
         </connector>
     </assignments>
     <assignments>
         <name>Get_UsagePeriod_EndDate_Current</name>
         <label>Get Usage Period End Date (Current)</label>
         <locationX>1096</locationX>
-        <locationY>383</locationY>
+        <locationY>431</locationY>
         <assignmentItems>
             <assignToReference>EndDate_Current</assignToReference>
             <operator>Assign</operator>
@@ -201,12 +298,12 @@
         <name>Get_UsagePeriod_Index_Next</name>
         <label>Get Usage Period Index (Next)</label>
         <locationX>1096</locationX>
-        <locationY>623</locationY>
+        <locationY>716</locationY>
         <assignmentItems>
             <assignToReference>Index_Next</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Index_Current</elementReference>
+                <elementReference>US_Current.Index__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -225,7 +322,7 @@
         <name>Initialize_GeneralVariables</name>
         <label>Initialize General Variables</label>
         <locationX>1096</locationX>
-        <locationY>863</locationY>
+        <locationY>984</locationY>
         <assignmentItems>
             <assignToReference>CarryoverFactor</assignToReference>
             <operator>Assign</operator>
@@ -258,7 +355,7 @@
             <assignToReference>Leftover</assignToReference>
             <operator>Subtract</operator>
             <value>
-                <elementReference>QuantityConsumed_Current</elementReference>
+                <elementReference>US_Current.blng__TotalQuantity__c</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -266,42 +363,10 @@
         </connector>
     </assignments>
     <assignments>
-        <name>Initialize_PoolVariables</name>
-        <label>Initialize Pool Variables</label>
-        <locationX>942</locationX>
-        <locationY>1056</locationY>
-        <assignmentItems>
-            <assignToReference>CreditValidity</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <numberValue>1.0</numberValue>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>UsagePeriod_HasChanged</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
-        <name>Initialize_RollingVariables</name>
-        <label>Initialize Rolling Variables</label>
-        <locationX>1251</locationX>
-        <locationY>1061</locationY>
-        <assignmentItems>
-            <assignToReference>CreditValidity</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>UsageTerm</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Calculate_RollingWindow_StartIndex</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
         <name>No_Carryover_Limits</name>
         <label>No Carryover Limits</label>
-        <locationX>818</locationX>
-        <locationY>1325</locationY>
+        <locationX>874</locationX>
+        <locationY>1417</locationY>
         <assignmentItems>
             <assignToReference>CarryoverFactor</assignToReference>
             <operator>Assign</operator>
@@ -314,49 +379,42 @@
             <operator>Assign</operator>
         </assignmentItems>
         <connector>
-            <targetReference>Calculate_RollingWindow_StartIndex</targetReference>
+            <targetReference>Calculate_IndexWindowStart</targetReference>
         </connector>
     </assignments>
     <assignments>
-        <name>Refresh_CurrentPeriod_Carryover</name>
-        <label>Refresh Current Period Carryover</label>
-        <locationX>1104</locationX>
-        <locationY>2445</locationY>
+        <name>Set_Leftover_to_Positive</name>
+        <label>Set Leftover to Positive</label>
+        <locationX>1098</locationX>
+        <locationY>2392</locationY>
         <assignmentItems>
-            <assignToReference>UsagePeriod_Current.Id</assignToReference>
+            <assignToReference>Leftover</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>ID_Current</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>UsagePeriod_Current.CreditLeftover__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>QuantityCarryover_Current</elementReference>
+                <elementReference>FX_Leftover_OnlyPositive</elementReference>
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Add_Carryover_to_NextUsagePeriod</targetReference>
+            <targetReference>Calculate_Leftover_with_Carryover</targetReference>
         </connector>
     </assignments>
     <assignments>
         <name>Set_QuantityAvailable_for_NextPeriod</name>
         <label>Set Quantity Available for Next Period</label>
-        <locationX>1386</locationX>
-        <locationY>2445</locationY>
+        <locationX>1311</locationX>
+        <locationY>3170</locationY>
         <assignmentItems>
             <assignToReference>QuantityAvailable_Next</assignToReference>
             <operator>Add</operator>
             <value>
-                <elementReference>QuantityAllowance_Next</elementReference>
+                <elementReference>US_Next.QuantityAllowance__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>QuantityAvailable_Next</assignToReference>
             <operator>Add</operator>
             <value>
-                <elementReference>QuantityCarryover_Next</elementReference>
+                <elementReference>US_Next.QuantityCarryover__c</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -366,8 +424,8 @@
     <assignments>
         <name>Store_Previous_Upper_Bound</name>
         <label>Store Previous Upper Bound</label>
-        <locationX>1348</locationX>
-        <locationY>3340</locationY>
+        <locationX>1640</locationX>
+        <locationY>3989</locationY>
         <assignmentItems>
             <assignToReference>UpperBound_Current</assignToReference>
             <operator>Assign</operator>
@@ -380,26 +438,10 @@
         </connector>
     </assignments>
     <assignments>
-        <name>UnusedLeftover_passes_to_NextPeriod</name>
-        <label>Unused Leftover passes to Next Period</label>
-        <locationX>1101</locationX>
-        <locationY>2073</locationY>
-        <assignmentItems>
-            <assignToReference>QuantityCarryover_Next</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>FX_Leftover_OnlyPositive</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Discount_Usage_from_Allowance</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
         <name>Update_Both_Bounds</name>
         <label>Update Both Bounds</label>
-        <locationX>1612</locationX>
-        <locationY>3234</locationY>
+        <locationX>1757</locationX>
+        <locationY>3777</locationY>
         <assignmentItems>
             <assignToReference>Loop_Consumption_Rates.SBQQ__LowerBound__c</assignToReference>
             <operator>Assign</operator>
@@ -426,10 +468,40 @@
         </connector>
     </assignments>
     <assignments>
+        <name>Update_CreditLeftover</name>
+        <label>Update Credit Leftover</label>
+        <locationX>1392</locationX>
+        <locationY>1760</locationY>
+        <assignmentItems>
+            <assignToReference>US.CreditLeftover__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>FX_Leftover_OnlyPositive</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>US.Id</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Loop_through_UsageWindow.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>LeftoverPool</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>FX_Leftover_OnlyPositive</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Add_to_UpdatedQueue</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
         <name>Update_Lower_Bound</name>
         <label>Update Lower Bound</label>
-        <locationX>1421</locationX>
-        <locationY>3124</locationY>
+        <locationX>1640</locationX>
+        <locationY>3777</locationY>
         <assignmentItems>
             <assignToReference>Loop_Consumption_Rates.SBQQ__LowerBound__c</assignToReference>
             <operator>Assign</operator>
@@ -444,8 +516,8 @@
     <assignments>
         <name>Update_Upper_Bound</name>
         <label>Update Upper Bound</label>
-        <locationX>1269</locationX>
-        <locationY>3123</locationY>
+        <locationX>1525</locationX>
+        <locationY>3776</locationY>
         <assignmentItems>
             <assignToReference>Loop_Consumption_Rates.SBQQ__UpperBound__c</assignToReference>
             <operator>Assign</operator>
@@ -464,36 +536,13 @@
             <targetReference>Store_Previous_Upper_Bound</targetReference>
         </connector>
     </assignments>
-    <assignments>
-        <name>Update_UsagePeriod</name>
-        <label>Update Usage Period</label>
-        <locationX>1406</locationX>
-        <locationY>1817</locationY>
-        <assignmentItems>
-            <assignToReference>UsagePeriod.CreditLeftover__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>FX_Leftover_OnlyPositive</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>UsagePeriod.Id</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Loop_through_UsagePeriods.Id</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Add_to_Update_Queue</targetReference>
-        </connector>
-    </assignments>
     <decisions>
         <name>CreditCarryoverType</name>
         <label>Credit Carryover Type</label>
-        <locationX>1096</locationX>
-        <locationY>983</locationY>
+        <locationX>1088</locationX>
+        <locationY>1128</locationY>
         <defaultConnector>
-            <targetReference>Initialize_RollingVariables</targetReference>
+            <targetReference>Calculate_WindowStartDelta_Rolling</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Rolling</defaultConnectorLabel>
         <rules>
@@ -507,7 +556,57 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Initialize_PoolVariables</targetReference>
+                <targetReference>Calculate_WindowStartDelta_Pool</targetReference>
+            </connector>
+            <label>Pool</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>CreditCarryoverType_0</name>
+        <label>Credit Carryover Type</label>
+        <locationX>1089</locationX>
+        <locationY>1956</locationY>
+        <defaultConnector>
+            <targetReference>Calculate_QuantityCarryover_from_CurrentPeriodLeftover_0</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Rolling</defaultConnectorLabel>
+        <rules>
+            <name>Pool_0</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.CreditCarryoverType__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Pool</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Calculate_QuantityCarryover_from_PoolLeftover</targetReference>
+            </connector>
+            <label>Pool</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>CreditCarryoverType_0_0</name>
+        <label>Credit Carryover Type</label>
+        <locationX>1235</locationX>
+        <locationY>2734</locationY>
+        <defaultConnector>
+            <targetReference>Apply_CarryoverLimit</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Rolling</defaultConnectorLabel>
+        <rules>
+            <name>Pool_0_0</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.CreditCarryoverType__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Pool</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>UsagePeriod_HasChanged_0</targetReference>
             </connector>
             <label>Pool</label>
         </rules>
@@ -515,10 +614,10 @@
     <decisions>
         <name>Has_CarryoverLimit</name>
         <label>Has Carryover Limit?</label>
-        <locationX>1098</locationX>
-        <locationY>2240</locationY>
+        <locationX>1088</locationX>
+        <locationY>2686</locationY>
         <defaultConnector>
-            <targetReference>Apply_CarryoverLimit</targetReference>
+            <targetReference>CreditCarryoverType_0_0</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Yes</defaultConnectorLabel>
         <rules>
@@ -539,7 +638,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Refresh_CurrentPeriod_Carryover</targetReference>
+                <targetReference>Add_CreditLeftover_to_NextUsagePeriod</targetReference>
             </connector>
             <label>No</label>
         </rules>
@@ -547,8 +646,8 @@
     <decisions>
         <name>Rate_Index_Selector</name>
         <label>Rate Index Selector</label>
-        <locationX>1261</locationX>
-        <locationY>2908</locationY>
+        <locationX>1516</locationX>
+        <locationY>3600</locationY>
         <defaultConnector>
             <targetReference>Calculate_Delta</targetReference>
         </defaultConnector>
@@ -588,8 +687,8 @@
         <description>Evaluate if Usage Period has changed (by checking whether the Billing Period and Usage Period are multiples).</description>
         <name>UsagePeriod_HasChanged</name>
         <label>Usage Period Has Changed?</label>
-        <locationX>933</locationX>
-        <locationY>1191</locationY>
+        <locationX>972</locationX>
+        <locationY>1352</locationY>
         <defaultConnector>
             <targetReference>No_Carryover_Limits</targetReference>
         </defaultConnector>
@@ -598,14 +697,40 @@
             <name>Yes_UsagePeriodChanged</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>FX_UsagePeriod_HasChanged</leftValueReference>
+                <leftValueReference>US_Next.RefreshPeriod__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <numberValue>0.0</numberValue>
+                    <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Calculate_RollingWindow_StartIndex</targetReference>
+                <targetReference>Calculate_IndexWindowStart</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Evaluate if Usage Period has changed (by checking whether the Billing Period and Usage Period are multiples).</description>
+        <name>UsagePeriod_HasChanged_0</name>
+        <label>Usage Period Has Changed?</label>
+        <locationX>1464</locationX>
+        <locationY>2780</locationY>
+        <defaultConnector>
+            <targetReference>Apply_CarryoverLimit</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Yes_UsagePeriodChanged_0</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>US_Next.RefreshPeriod__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Add_CreditLeftover_to_NextUsagePeriod_0</targetReference>
             </connector>
             <label>Yes</label>
         </rules>
@@ -613,7 +738,7 @@
     <formulas>
         <name>FX_Carryover_WithCarryoverLimit</name>
         <dataType>Number</dataType>
-        <expression>MIN( {!CarryoverLimit}, {!QuantityCarryover} )</expression>
+        <expression>MIN( {!CarryoverLimit}, {!US_Next.QuantityCarryover__c} )</expression>
         <scale>2</scale>
     </formulas>
     <formulas>
@@ -632,7 +757,19 @@
     <formulas>
         <name>FX_Leftover_WithCarryoverFactor</name>
         <dataType>Number</dataType>
-        <expression>{!FX_Leftover_OnlyPositive} * {!CarryoverFactor}/100</expression>
+        <expression>{!Leftover} * {!CarryoverFactor}/100</expression>
+        <scale>2</scale>
+    </formulas>
+    <formulas>
+        <name>FX_Leftover_WithCarryoverLimit</name>
+        <dataType>Number</dataType>
+        <expression>MIN( {!CarryoverLimit}, {!US_Current.CreditLeftover__c} )</expression>
+        <scale>2</scale>
+    </formulas>
+    <formulas>
+        <name>FX_LeftoverPool_WithCarryoverFactor</name>
+        <dataType>Number</dataType>
+        <expression>{!LeftoverPool} * {!CarryoverFactor}/100</expression>
         <scale>2</scale>
     </formulas>
     <formulas>
@@ -642,9 +779,9 @@
         <scale>0</scale>
     </formulas>
     <formulas>
-        <name>FX_UsagePeriod_HasChanged</name>
+        <name>FX_WindowStartDelta</name>
         <dataType>Number</dataType>
-        <expression>MOD({!Index_Next}-1,{!UsageTerm})</expression>
+        <expression>MOD( {!US_Current.Index__c} - 1, {!UsageTerm} )</expression>
         <scale>0</scale>
     </formulas>
     <interviewLabel>Hybrid Usage - Update Usage Credits {!$Flow.CurrentDateTime}</interviewLabel>
@@ -652,8 +789,8 @@
     <loops>
         <name>Loop_Consumption_Rates</name>
         <label>Loop Consumption Rates</label>
-        <locationX>1105</locationX>
-        <locationY>2905</locationY>
+        <locationX>1313</locationX>
+        <locationY>3667</locationY>
         <collectionReference>Get_ConsumptionRates</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -664,17 +801,17 @@
         </noMoreValuesConnector>
     </loops>
     <loops>
-        <name>Loop_through_UsagePeriods</name>
-        <label>Loop through Usage Periods</label>
-        <locationX>1099</locationX>
-        <locationY>1817</locationY>
-        <collectionReference>UsagePeriods_in_RollingWindow</collectionReference>
+        <name>Loop_through_UsageWindow</name>
+        <label>Loop through Usage Window</label>
+        <locationX>1098</locationX>
+        <locationY>1758</locationY>
+        <collectionReference>US_Window</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
             <targetReference>Discount_Usage_from_Leftover</targetReference>
         </nextValueConnector>
         <noMoreValuesConnector>
-            <targetReference>UnusedLeftover_passes_to_NextPeriod</targetReference>
+            <targetReference>CreditCarryoverType_0</targetReference>
         </noMoreValuesConnector>
     </loops>
     <processMetadataValues>
@@ -699,8 +836,8 @@
     <recordLookups>
         <name>Get_BucketConsumptionSchedule</name>
         <label>Get Bucket Consumption Schedule</label>
-        <locationX>1104</locationX>
-        <locationY>2599</locationY>
+        <locationX>1311</locationX>
+        <locationY>3330</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_ConsumptionRates</targetReference>
@@ -722,8 +859,8 @@
     <recordLookups>
         <name>Get_ConsumptionRates</name>
         <label>Get Consumption Rates</label>
-        <locationX>1105</locationX>
-        <locationY>2756</locationY>
+        <locationX>1313</locationX>
+        <locationY>3477</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Loop_Consumption_Rates</targetReference>
@@ -746,8 +883,8 @@
         <description>Get the Available, Cumulative, and Consumed Quantities from the Current usage period.</description>
         <name>Get_UsagePeriod_Current</name>
         <label>Usage Period (Current)</label>
-        <locationX>1097</locationX>
-        <locationY>503</locationY>
+        <locationX>1096</locationX>
+        <locationY>572</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_UsagePeriod_Index_Next</targetReference>
@@ -768,32 +905,18 @@
             </value>
         </filters>
         <object>blng__UsageSummary__c</object>
-        <outputAssignments>
-            <assignToReference>ID_Current</assignToReference>
-            <field>Id</field>
-        </outputAssignments>
-        <outputAssignments>
-            <assignToReference>QuantityAllowance_Current</assignToReference>
-            <field>QuantityAllowance__c</field>
-        </outputAssignments>
-        <outputAssignments>
-            <assignToReference>QuantityCarryover_Current</assignToReference>
-            <field>QuantityCarryover__c</field>
-        </outputAssignments>
-        <outputAssignments>
-            <assignToReference>Index_Current</assignToReference>
-            <field>Index__c</field>
-        </outputAssignments>
-        <outputAssignments>
-            <assignToReference>QuantityConsumed_Current</assignToReference>
-            <field>blng__TotalQuantity__c</field>
-        </outputAssignments>
+        <outputReference>US_Current</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Index__c</queriedFields>
+        <queriedFields>QuantityAllowance__c</queriedFields>
+        <queriedFields>QuantityCarryover__c</queriedFields>
+        <queriedFields>blng__TotalQuantity__c</queriedFields>
     </recordLookups>
     <recordLookups>
         <name>UsagePeriod_Next</name>
         <label>Usage Period (Next)</label>
-        <locationX>1097</locationX>
-        <locationY>743</locationY>
+        <locationX>1096</locationX>
+        <locationY>855</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Initialize_GeneralVariables</targetReference>
@@ -814,23 +937,21 @@
             </value>
         </filters>
         <object>blng__UsageSummary__c</object>
-        <outputAssignments>
-            <assignToReference>ID_Next</assignToReference>
-            <field>Id</field>
-        </outputAssignments>
-        <outputAssignments>
-            <assignToReference>QuantityAllowance_Next</assignToReference>
-            <field>QuantityAllowance__c</field>
-        </outputAssignments>
+        <outputReference>US_Next</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>QuantityAllowance__c</queriedFields>
+        <queriedFields>QuantityCarryover__c</queriedFields>
+        <queriedFields>RefreshPeriod__c</queriedFields>
+        <queriedFields>QuantityAvailable__c</queriedFields>
     </recordLookups>
     <recordLookups>
         <name>UsagePeriods_in_RollingWindow</name>
         <label>Usage Periods in Rolling Window</label>
-        <locationX>1091</locationX>
-        <locationY>1658</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <locationX>1098</locationX>
+        <locationY>1574</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Loop_through_UsagePeriods</targetReference>
+            <targetReference>Loop_through_UsageWindow</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -844,7 +965,7 @@
             <field>Index__c</field>
             <operator>LessThan</operator>
             <value>
-                <elementReference>Index_Current</elementReference>
+                <elementReference>US_Current.Index__c</elementReference>
             </value>
         </filters>
         <filters>
@@ -854,21 +975,20 @@
                 <elementReference>$Record.Id</elementReference>
             </value>
         </filters>
-        <getFirstRecordOnly>false</getFirstRecordOnly>
         <object>blng__UsageSummary__c</object>
+        <outputReference>US_Window</outputReference>
         <queriedFields>Id</queriedFields>
         <queriedFields>CreditLeftover__c</queriedFields>
         <queriedFields>QuantityAllowance__c</queriedFields>
         <queriedFields>Index__c</queriedFields>
         <sortField>Index__c</sortField>
         <sortOrder>Asc</sortOrder>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordUpdates>
         <name>Update_Consumption_Rates</name>
         <label>Update Consumption Rates</label>
-        <locationX>1099</locationX>
-        <locationY>3530</locationY>
+        <locationX>1305</locationX>
+        <locationY>4118</locationY>
         <connector>
             <targetReference>Update_UsagePeriods_RollingWindow</targetReference>
         </connector>
@@ -877,50 +997,29 @@
     <recordUpdates>
         <name>Update_UsagePeriod_Current</name>
         <label>Update Current Usage Period</label>
-        <locationX>1097</locationX>
-        <locationY>3833</locationY>
+        <locationX>1305</locationX>
+        <locationY>4415</locationY>
         <connector>
             <targetReference>Update_UsagePeriod_Next</targetReference>
         </connector>
-        <inputReference>UsagePeriod_Current</inputReference>
+        <inputReference>US_Current</inputReference>
     </recordUpdates>
     <recordUpdates>
         <name>Update_UsagePeriod_Next</name>
         <label>Update Next Usage Period</label>
-        <locationX>1098</locationX>
-        <locationY>3981</locationY>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>blng__OrderProduct__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>$Record.Id</elementReference>
-            </value>
-        </filters>
-        <filters>
-            <field>Index__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>Index_Next</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <field>QuantityCarryover__c</field>
-            <value>
-                <elementReference>QuantityCarryover_Next</elementReference>
-            </value>
-        </inputAssignments>
-        <object>blng__UsageSummary__c</object>
+        <locationX>1307</locationX>
+        <locationY>4571</locationY>
+        <inputReference>US_Next</inputReference>
     </recordUpdates>
     <recordUpdates>
         <name>Update_UsagePeriods_RollingWindow</name>
         <label>Update Rolling Window Usage Periods</label>
-        <locationX>1097</locationX>
-        <locationY>3684</locationY>
+        <locationX>1305</locationX>
+        <locationY>4271</locationY>
         <connector>
             <targetReference>Update_UsagePeriod_Current</targetReference>
         </connector>
-        <inputReference>UsagePeriods_RollingWindow</inputReference>
+        <inputReference>US_Window_Updated</inputReference>
     </recordUpdates>
     <start>
         <locationX>970</locationX>
@@ -937,17 +1036,17 @@
             </value>
         </filters>
         <filters>
-            <field>HasConsumptionSchedule__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <booleanValue>true</booleanValue>
-            </value>
-        </filters>
-        <filters>
-            <field>UsageTerm__c</field>
+            <field>CreditCarryoverType__c</field>
             <operator>IsNull</operator>
             <value>
                 <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>UsageType__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Minimum Commitment</stringValue>
             </value>
         </filters>
         <object>OrderItem</object>
@@ -997,28 +1096,6 @@
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <name>ID_Current</name>
-        <dataType>String</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-    </variables>
-    <variables>
-        <name>ID_Next</name>
-        <dataType>String</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-    </variables>
-    <variables>
-        <name>Index_Current</name>
-        <dataType>Number</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-        <scale>0</scale>
-    </variables>
-    <variables>
         <name>Index_Next</name>
         <dataType>Number</dataType>
         <isCollection>false</isCollection>
@@ -1049,18 +1126,7 @@
         </value>
     </variables>
     <variables>
-        <name>LowerBound_Current</name>
-        <dataType>Number</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-        <scale>0</scale>
-        <value>
-            <numberValue>1.0</numberValue>
-        </value>
-    </variables>
-    <variables>
-        <name>QuantityAllowance_Current</name>
+        <name>LeftoverPool</name>
         <dataType>Number</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
@@ -1071,14 +1137,14 @@
         </value>
     </variables>
     <variables>
-        <name>QuantityAllowance_Next</name>
+        <name>LowerBound_Current</name>
         <dataType>Number</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
         <isOutput>false</isOutput>
         <scale>0</scale>
         <value>
-            <numberValue>0.0</numberValue>
+            <numberValue>1.0</numberValue>
         </value>
     </variables>
     <variables>
@@ -1099,39 +1165,6 @@
         <isInput>false</isInput>
         <isOutput>false</isOutput>
         <scale>2</scale>
-        <value>
-            <numberValue>0.0</numberValue>
-        </value>
-    </variables>
-    <variables>
-        <name>QuantityCarryover_Current</name>
-        <dataType>Number</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-        <scale>2</scale>
-        <value>
-            <numberValue>0.0</numberValue>
-        </value>
-    </variables>
-    <variables>
-        <name>QuantityCarryover_Next</name>
-        <dataType>Number</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-        <scale>2</scale>
-        <value>
-            <numberValue>0.0</numberValue>
-        </value>
-    </variables>
-    <variables>
-        <name>QuantityConsumed_Current</name>
-        <dataType>Number</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-        <scale>0</scale>
         <value>
             <numberValue>0.0</numberValue>
         </value>
@@ -1164,7 +1197,7 @@
         </value>
     </variables>
     <variables>
-        <name>UsagePeriod</name>
+        <name>US</name>
         <dataType>SObject</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
@@ -1172,7 +1205,7 @@
         <objectType>blng__UsageSummary__c</objectType>
     </variables>
     <variables>
-        <name>UsagePeriod_Current</name>
+        <name>US_Current</name>
         <dataType>SObject</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
@@ -1180,7 +1213,23 @@
         <objectType>blng__UsageSummary__c</objectType>
     </variables>
     <variables>
-        <name>UsagePeriods_RollingWindow</name>
+        <name>US_Next</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>blng__UsageSummary__c</objectType>
+    </variables>
+    <variables>
+        <name>US_Window</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>blng__UsageSummary__c</objectType>
+    </variables>
+    <variables>
+        <name>US_Window_Updated</name>
         <dataType>SObject</dataType>
         <isCollection>true</isCollection>
         <isInput>false</isInput>
@@ -1194,5 +1243,13 @@
         <isInput>false</isInput>
         <isOutput>false</isOutput>
         <scale>2</scale>
+    </variables>
+    <variables>
+        <name>WindowStartDelta</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
     </variables>
 </Flow>
